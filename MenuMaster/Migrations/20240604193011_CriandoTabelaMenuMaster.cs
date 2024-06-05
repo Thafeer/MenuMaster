@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MenuMaster.Migrations
 {
     /// <inheritdoc />
-    public partial class MenuMaster : Migration
+    public partial class CriandoTabelaMenuMaster : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,17 +26,19 @@ namespace MenuMaster.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MenuItems",
+                name: "MenuItens",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Preco = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Preco = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Tipo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Disponivel = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MenuItems", x => x.Id);
+                    table.PrimaryKey("PK_MenuItens", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -46,18 +48,12 @@ namespace MenuMaster.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Numero = table.Column<int>(type: "int", nullable: false),
-                    Ocupada = table.Column<bool>(type: "bit", nullable: false),
-                    ClienteId = table.Column<int>(type: "int", nullable: false)
+                    Ocupada = table.Column<bool>(type: "bit", nullable: true),
+                    ClienteId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Mesas", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Mesas_Clientes_ClienteId",
-                        column: x => x.ClienteId,
-                        principalTable: "Clientes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_Mesas", x => x.Id);                  
                 });
 
             migrationBuilder.CreateTable(
@@ -68,21 +64,15 @@ namespace MenuMaster.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MesaId = table.Column<int>(type: "int", nullable: false),
                     DataHora = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pedidos", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Pedidos_Mesas_MesaId",
-                        column: x => x.MesaId,
-                        principalTable: "Mesas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_Pedidos", x => x.Id);                  
                 });
 
             migrationBuilder.CreateTable(
-                name: "PedidoItems",
+                name: "PedidoItens",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -94,50 +84,18 @@ namespace MenuMaster.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PedidoItems", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PedidoItems_MenuItems_MenuItemId",
-                        column: x => x.MenuItemId,
-                        principalTable: "MenuItems",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PedidoItems_Pedidos_PedidoId",
-                        column: x => x.PedidoId,
-                        principalTable: "Pedidos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_PedidoItens", x => x.Id);                   
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Mesas_ClienteId",
-                table: "Mesas",
-                column: "ClienteId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PedidoItems_MenuItemId",
-                table: "PedidoItems",
-                column: "MenuItemId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PedidoItems_PedidoId",
-                table: "PedidoItems",
-                column: "PedidoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Pedidos_MesaId",
-                table: "Pedidos",
-                column: "MesaId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "PedidoItems");
+                name: "PedidoItens");
 
             migrationBuilder.DropTable(
-                name: "MenuItems");
+                name: "MenuItens");
 
             migrationBuilder.DropTable(
                 name: "Pedidos");

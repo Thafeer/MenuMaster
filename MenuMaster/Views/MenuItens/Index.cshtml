@@ -1,5 +1,5 @@
 ﻿@using MenuMaster.Models
-@model List<MenuItem>
+@model List<MenuItem> 
 
 @{
     ViewBag.Title = "MenuMaster";
@@ -10,7 +10,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
-                    <a role="button" class="btn btn-primary" asp-action="Criar" asp-controller="MenuItems">Cadastrar novo</a>
+                    <a role="button" class="btn btn-primary" asp-action="Criar" asp-controller="MenuItens">Cadastrar novo</a>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -35,8 +35,8 @@
                             {
                                 @foreach (var item in Model)
                                 {
-                                    if (item.Tipo == "COMIDA")
-                                    {
+                                    if (item.Tipo.ToUpper() == "COMIDA")
+                                    { 
                                         if (item.Disponivel)
                                         {
                                             <div class="col-lg-3 col-6">
@@ -44,9 +44,9 @@
                                                     <div class="inner">
                                                         <h6>@item.Nome</h6>
                                                         <h6>@item.Tipo</h6>
-                                                        <h6>@item.Preco</h6>
+                                                        <h6>R$@item.Preco</h6>
                                                         <h6>
-                                                            Disponível &ensp;<a role="button" class="btn btn-info" asp-route-id="@item.Id" asp-controller="MenuItems" asp-action="Editar">Alterar disponibilidade</a>
+                                                            Disponível &ensp;<a role="button" class="bg-gradient btn-sm btn btn-info" asp-route-id="@item.Id" asp-controller="MenuItens" asp-action="Editar">Alterar disponibilidade</a>
                                                         </h6>
                                                     </div>
                                                 </div>
@@ -59,10 +59,10 @@
                                                     <div class="inner">
                                                         <h6>@item.Nome</h6>
                                                         <h6>@item.Tipo</h6>
-                                                        <h6>@item.Preco</h6>
+                                                        <h6>R$@item.Preco</h6>
                                                         <h6>
                                                             Indisponível &ensp;
-                                                            <a role="button" class="btn btn-info" asp-route-id="@item.Id" asp-controller="MenuItems" asp-action="Editar">Alterar disponibilidade</a>
+                                                            <a role="button" class="bg-gradient btn-sm btn btn-info" asp-route-id="@item.Id" asp-controller="MenuItens" asp-action="Editar">Alterar disponibilidade</a>
                                                         </h6>
                                                     </div>
                                                 </div>
@@ -107,9 +107,9 @@
                                                     <div class="inner">
                                                         <h6>@item.Nome</h6>
                                                         <h6>@item.Tipo</h6>
-                                                        <h6>@item.Preco</h6>
+                                                        <h6>R$@item.Preco</h6>
                                                         <h6>
-                                                            Disponível &ensp;<a role="button" class="btn btn-info" asp-route-id="@item.Id" asp-controller="MenuItems" asp-action="Editar">Alterar disponibilidade</a>
+                                                            Disponível &ensp;<a role="button" class="bg-gradient btn-sm btn btn-info" asp-route-id="@item.Id" asp-controller="MenuItens" asp-action="Editar">Alterar disponibilidade</a>
                                                         </h6>
                                                     </div>
                                                 </div>
@@ -122,10 +122,10 @@
                                                     <div class="inner">
                                                         <h6>@item.Nome</h6>
                                                         <h6>@item.Tipo</h6>
-                                                        <h6>@item.Preco</h6>
+                                                        <h6>R$@item.Preco</h6>
                                                         <h6>
                                                             Indisponível &ensp;
-                                                            <a role="button" class="btn btn-info" asp-route-id="@item.Id" asp-controller="MenuItems" asp-action="Editar">Alterar disponibilidade</a>
+                                                            <a role="button" class="bg-gradient btn-sm btn btn-info" asp-route-id="@item.Id" asp-controller="MenuItens" asp-action="Editar">Alterar disponibilidade</a>
                                                         </h6>
                                                     </div>
                                                 </div>

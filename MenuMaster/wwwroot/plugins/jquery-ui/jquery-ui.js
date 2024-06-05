@@ -5068,7 +5068,7 @@ var widgetsMenu = $.widget( "ui.menu", {
 
 				// If there's already an active item, keep it active
 				// If not, activate the first item
-				var item = this.active || this._menuItems().first();
+				var item = this.active || this._MenuItens().first();
 
 				if ( !keepActiveItem ) {
 					this.focus( event, item );
@@ -5222,7 +5222,7 @@ var widgetsMenu = $.widget( "ui.menu", {
 				character = prev + character;
 			}
 
-			match = this._filterMenuItems( character );
+			match = this._filterMenuItens( character );
 			match = skip && match.index( this.active.next() ) !== -1 ?
 				this.active.nextAll( ".ui-menu-item" ) :
 				match;
@@ -5231,7 +5231,7 @@ var widgetsMenu = $.widget( "ui.menu", {
 			// to move down the menu to the first item that starts with that character
 			if ( !match.length ) {
 				character = String.fromCharCode( event.keyCode );
-				match = this._filterMenuItems( character );
+				match = this._filterMenuItens( character );
 			}
 
 			if ( match.length ) {
@@ -5510,7 +5510,7 @@ var widgetsMenu = $.widget( "ui.menu", {
 	},
 
 	expand: function( event ) {
-		var newItem = this.active && this._menuItems( this.active.children( ".ui-menu" ) ).first();
+		var newItem = this.active && this._MenuItens( this.active.children( ".ui-menu" ) ).first();
 
 		if ( newItem && newItem.length ) {
 			this._open( newItem.parent() );
@@ -5538,7 +5538,7 @@ var widgetsMenu = $.widget( "ui.menu", {
 		return this.active && !this.active.nextAll( ".ui-menu-item" ).length;
 	},
 
-	_menuItems: function( menu ) {
+	_MenuItens: function( menu ) {
 		return ( menu || this.element )
 			.find( this.options.items )
 			.filter( ".ui-menu-item" );
@@ -5558,7 +5558,7 @@ var widgetsMenu = $.widget( "ui.menu", {
 			}
 		}
 		if ( !next || !next.length || !this.active ) {
-			next = this._menuItems( this.activeMenu )[ filter ]();
+			next = this._MenuItens( this.activeMenu )[ filter ]();
 		}
 
 		this.focus( event, next );
@@ -5590,7 +5590,7 @@ var widgetsMenu = $.widget( "ui.menu", {
 
 			this.focus( event, item );
 		} else {
-			this.focus( event, this._menuItems( this.activeMenu )
+			this.focus( event, this._MenuItens( this.activeMenu )
 				[ !this.active ? "first" : "last" ]() );
 		}
 	},
@@ -5620,7 +5620,7 @@ var widgetsMenu = $.widget( "ui.menu", {
 
 			this.focus( event, item );
 		} else {
-			this.focus( event, this._menuItems( this.activeMenu ).first() );
+			this.focus( event, this._MenuItens( this.activeMenu ).first() );
 		}
 	},
 
@@ -5640,7 +5640,7 @@ var widgetsMenu = $.widget( "ui.menu", {
 		this._trigger( "select", event, ui );
 	},
 
-	_filterMenuItems: function( character ) {
+	_filterMenuItens: function( character ) {
 		var escapedCharacter = character.replace( /[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&" ),
 			regex = new RegExp( "^" + escapedCharacter, "i" );
 
@@ -14137,7 +14137,7 @@ var widgetsSelectmenu = $.widget( "ui.selectmenu", [ $.ui.formResetMixin, {
 		this._bindFormResetHandler();
 
 		this._rendered = false;
-		this.menuItems = $();
+		this.MenuItens = $();
 	},
 
 	_drawButton: function() {
@@ -14241,7 +14241,7 @@ var widgetsSelectmenu = $.widget( "ui.selectmenu", [ $.ui.formResetMixin, {
 					that.focusIndex = item.index;
 
 					that.button.attr( "aria-activedescendant",
-						that.menuItems.eq( item.index ).attr( "id" ) );
+						that.MenuItens.eq( item.index ).attr( "id" ) );
 				}
 			} )
 			.menu( "instance" );
@@ -14284,7 +14284,7 @@ var widgetsSelectmenu = $.widget( "ui.selectmenu", [ $.ui.formResetMixin, {
 		this._renderMenu( this.menu, this.items );
 
 		this.menuInstance.refresh();
-		this.menuItems = this.menu.find( "li" )
+		this.MenuItens = this.menu.find( "li" )
 			.not( ".ui-selectmenu-optgroup" )
 				.find( ".ui-menu-item-wrapper" );
 
@@ -14320,7 +14320,7 @@ var widgetsSelectmenu = $.widget( "ui.selectmenu", [ $.ui.formResetMixin, {
 		}
 
 		// If there are no options, don't open the menu
-		if ( !this.menuItems.length ) {
+		if ( !this.MenuItens.length ) {
 			return;
 		}
 
@@ -14425,9 +14425,9 @@ var widgetsSelectmenu = $.widget( "ui.selectmenu", [ $.ui.formResetMixin, {
 			filter = ".ui-menu-item";
 
 		if ( this.isOpen ) {
-			item = this.menuItems.eq( this.focusIndex ).parent( "li" );
+			item = this.MenuItens.eq( this.focusIndex ).parent( "li" );
 		} else {
-			item = this.menuItems.eq( this.element[ 0 ].selectedIndex ).parent( "li" );
+			item = this.MenuItens.eq( this.element[ 0 ].selectedIndex ).parent( "li" );
 			filter += ":not(.ui-state-disabled)";
 		}
 
@@ -14443,7 +14443,7 @@ var widgetsSelectmenu = $.widget( "ui.selectmenu", [ $.ui.formResetMixin, {
 	},
 
 	_getSelectedItem: function() {
-		return this.menuItems.eq( this.element[ 0 ].selectedIndex ).parent( "li" );
+		return this.MenuItens.eq( this.element[ 0 ].selectedIndex ).parent( "li" );
 	},
 
 	_toggle: function( event ) {
@@ -14569,7 +14569,7 @@ var widgetsSelectmenu = $.widget( "ui.selectmenu", [ $.ui.formResetMixin, {
 	},
 
 	_selectFocusedItem: function( event ) {
-		var item = this.menuItems.eq( this.focusIndex ).parent( "li" );
+		var item = this.MenuItens.eq( this.focusIndex ).parent( "li" );
 		if ( !item.hasClass( "ui-state-disabled" ) ) {
 			this._select( item.data( "ui-selectmenu-item" ), event );
 		}
@@ -14592,7 +14592,7 @@ var widgetsSelectmenu = $.widget( "ui.selectmenu", [ $.ui.formResetMixin, {
 	},
 
 	_setAria: function( item ) {
-		var id = this.menuItems.eq( item.index ).attr( "id" );
+		var id = this.MenuItens.eq( item.index ).attr( "id" );
 
 		this.button.attr( {
 			"aria-labelledby": id,

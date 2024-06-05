@@ -3,12 +3,12 @@
 }
 
 function Back(delay = 3000) {
-    setTimeout(() => window.location.href = '/MenuItems', delay);
+    setTimeout(() => window.location.href = '/MenuItens', delay);
 
 }
 
 $("#btnVoltarItem").click(function () {
-    window.location.href = '/MenuItems';
+    window.location.href = '/MenuItens';
 });
 
 function showAlert(type, title, message, sucesso = false) {
@@ -40,7 +40,7 @@ function CadastrarItem() {
 
     try {
         let r = $.ajax({
-            url: "/MenuItems/CriarItem",
+            url: "/MenuItens/CriarItem",
             method: "POST",
             async: false,
             contentType: "application/json",
@@ -80,7 +80,7 @@ function AlterarItem() {
 
     try {
         let r = $.ajax({
-            url: "/MenuItems/EditarItem",
+            url: "/MenuItens/EditarItem",
             method: "POST",
             async: false,
             contentType: "application/json",

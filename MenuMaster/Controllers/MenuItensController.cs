@@ -4,16 +4,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MenuMaster.Controllers
 {
-    public class MenuItemsController : Controller
+    public class MenuItensController : Controller
     {
         private readonly RestauranteContext _context;
-        public MenuItemsController(RestauranteContext context)
+        public MenuItensController(RestauranteContext context)
         {
             _context = context;
         }
         public IActionResult Index()
         {
-            return View(_context.MenuItems.OrderBy(x => x.Disponivel == false).ToList());
+            return View(_context.MenuItens.OrderBy(x => x.Disponivel == false).ToList());
         }
         public IActionResult Criar()
         {
@@ -22,11 +22,11 @@ namespace MenuMaster.Controllers
 
         public IActionResult Editar(int id)
         {
-            MenuItem item = _context.MenuItems.FirstOrDefault(x => x.Id == id);
+            MenuItem item = _context.MenuItens.FirstOrDefault(x => x.Id == id);
             return View(item);
         }
 
-        [HttpPost("MenuItems/CriarItem")]
+        [HttpPost("MenuItens/CriarItem")]
         [ValidateAntiForgeryToken]
         public IActionResult CriarItem([FromBody] MenuItem model)
         {
@@ -51,14 +51,14 @@ namespace MenuMaster.Controllers
             return Ok();
         }
 
-        [HttpPost("MenuItems/EditarItem")]
+        [HttpPost("MenuItens/EditarItem")]
         [ValidateAntiForgeryToken]
         public IActionResult EditarItem([FromBody] MenuItem model)
         {
             try
             {
 
-                MenuItem item = _context.MenuItems.FirstOrDefault(x => x.Id == model.Id);
+                MenuItem item = _context.MenuItens.FirstOrDefault(x => x.Id == model.Id);
                 if (item is null)
                     throw new InvalidOperationException("Não foi possivel encontrar o item, tente novamente;warning");
 

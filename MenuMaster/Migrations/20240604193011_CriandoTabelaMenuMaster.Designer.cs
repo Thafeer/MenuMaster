@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MenuMaster.Migrations
 {
     [DbContext(typeof(RestauranteContext))]
-    [Migration("20240602161151_MenuMaster")]
-    partial class MenuMaster
+    [Migration("20240604193011_CriandoTabelaMenuMaster")]
+    partial class CriandoTabelaMenuMaster
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,6 +54,9 @@ namespace MenuMaster.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("Disponivel")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -61,9 +64,13 @@ namespace MenuMaster.Migrations
                     b.Property<decimal>("Preco")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.ToTable("MenuItems");
+                    b.ToTable("MenuItens");
                 });
 
             modelBuilder.Entity("MenuMaster.Models.Mesa", b =>
@@ -140,7 +147,7 @@ namespace MenuMaster.Migrations
 
                     b.HasIndex("PedidoId");
 
-                    b.ToTable("PedidoItems");
+                    b.ToTable("PedidoItens");
                 });
 
             modelBuilder.Entity("MenuMaster.Models.Mesa", b =>

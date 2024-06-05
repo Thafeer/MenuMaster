@@ -51,6 +51,9 @@ namespace MenuMaster.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("Disponivel")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -58,9 +61,12 @@ namespace MenuMaster.Migrations
                     b.Property<decimal>("Preco")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("Tipo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.ToTable("MenuItems");
+                    b.ToTable("MenuItens");
                 });
 
             modelBuilder.Entity("MenuMaster.Models.Mesa", b =>
@@ -81,8 +87,6 @@ namespace MenuMaster.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ClienteId");
 
                     b.ToTable("Mesas");
                 });
@@ -105,8 +109,6 @@ namespace MenuMaster.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MesaId");
 
                     b.ToTable("Pedidos");
                 });
@@ -133,11 +135,7 @@ namespace MenuMaster.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MenuItemId");
-
-                    b.HasIndex("PedidoId");
-
-                    b.ToTable("PedidoItems");
+                    b.ToTable("PedidoItens");
                 });
 
             modelBuilder.Entity("MenuMaster.Models.Mesa", b =>
@@ -171,7 +169,7 @@ namespace MenuMaster.Migrations
                         .IsRequired();
 
                     b.HasOne("MenuMaster.Models.Pedido", "Pedido")
-                        .WithMany("Items")
+                        .WithMany("Itens")
                         .HasForeignKey("PedidoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -183,7 +181,7 @@ namespace MenuMaster.Migrations
 
             modelBuilder.Entity("MenuMaster.Models.Pedido", b =>
                 {
-                    b.Navigation("Items");
+                    b.Navigation("Itens");
                 });
 #pragma warning restore 612, 618
         }

@@ -6,8 +6,8 @@
         public int MesaId { get; set; }
         public Mesa Mesa { get; set;}
         public DateTime DataHora { get; set; }
-        public List<PedidoItem> Items { get; set; }
-        public  decimal Total { get; set; }
+        public List<PedidoItem> Itens { get; set; }
+        public decimal Total { get; set; }
     }
 
     public class PedidoItem
