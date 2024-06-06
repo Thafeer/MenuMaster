@@ -44,7 +44,8 @@
                                             <div class="small-box bg-success">
                                                 <div class="inner">
                                                     <h4>Mesa: @item.Numero</h4>
-                                                    <div class="dropdown">Disponível
+                                                    <div class="dropdown">
+                                                        Disponível
                                                         <button class="btn btn-info btn-sm bg-gradient dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                             Opções
                                                         </button>
@@ -78,7 +79,7 @@
                                             </div>
                                         </div>
                                     }
-                                    else 
+                                    else
                                     {
                                         <div class="col-md-2">
                                             <div class="small-box bg-danger">
@@ -129,34 +130,91 @@
                                     {
                                         foreach (var pedido in Mesa.Pedidos)
                                         {
-                                            if (pedido.Status.ToUpper() == "COZINHA")
+                                            if (pedido.Status.ToUpper().Contains("COZINHA"))
                                             {
-                                                <div class="col-md-2">
+                                                <div class="col-md-3">
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
                                                             <h4>Mesa: @pedido.Mesa.Numero</h4>
                                                             <h6>Cliente: @pedido.Mesa.Cliente.Nome</h6>
                                                             <h6>Pedido: @pedido.MenuItem.Nome</h6>
-                                                            <h6>Em Andamento na Cozinha</h6>
+                                                            @if (pedido.Status.ToUpper().Contains("EM ANDAMENTO"))
+                                                            {
+                                                                <h5>Em andamento cozinha</h5>
+                                                            }
+                                                            else
+                                                            {
+                                                                <h5>Aguardando cozinha</h5>
+                                                            }
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-dark btn-sm bg-gradient dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    Ações do pedido
+                                                                </button>
+                                                                <ul class="dropdown-menu">
+                                                                    @if (pedido.Status.ToUpper().Contains("EM ANDAMENTO"))
+                                                                    {
+                                                                        <li><a class="dropdown-item" href="#" onclick="EntregarPedido(@pedido.Id)">Entregue</a></li>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <li><a class="dropdown-item" href="#" onclick="PedidoAndamento(@pedido.Id)">Em Andamento</a></li>
+                                                                    }
+                                                                </ul>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             }
-                                            else if (pedido.Status.ToUpper() == "COPA")
+                                            else if (pedido.Status.ToUpper().Contains("COPA"))
                                             {
-                                                <div class="col-md-2">
+                                                <div class="col-md-3">
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
                                                             <h4>Mesa: @pedido.Mesa.Numero</h4>
                                                             <h6>Cliente: @pedido.Mesa.Cliente.Nome</h6>
                                                             <h6>Pedido: @pedido.MenuItem.Nome</h6>
-                                                            <h6>Em Andamento na Copa</h6>
+                                                            @if (pedido.Status.ToUpper().Contains("EM ANDAMENTO"))
+                                                            {
+                                                                <h5>Em andamento copa</h5>
+                                                            }
+                                                            else
+                                                            {
+                                                                <h5>Aguardando copa</h5>
+                                                            }
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-dark btn-sm bg-gradient dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    Ações do pedido
+                                                                </button>
+                                                                <ul class="dropdown-menu">
+                                                                    @if (pedido.Status.ToUpper().Contains("EM ANDAMENTO"))
+                                                                    {
+                                                                        <li><a class="dropdown-item" href="#" onclick="EntregarPedido(@pedido.Id)">Entregue</a></li>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <li><a class="dropdown-item" href="#" onclick="PedidoAndamento(@pedido.Id)">Em Andamento</a></li>
+                                                                    }
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="col-md-3">
+                                                    <div class="small-box bg-info">
+                                                        <div class="inner">
+                                                            <h4>Mesa: @pedido.Mesa.Numero</h4>
+                                                            <h6>Cliente: @pedido.Mesa.Cliente.Nome</h6>
+                                                            <h6>Pedido: @pedido.MenuItem.Nome</h6>
+                                                            <h5>Entregue</h5>                                                       
                                                         </div>
                                                     </div>
                                                 </div>
                                             }
                                         }
-                                    }                                             
+                                    }
                                 }
                             }
                             else

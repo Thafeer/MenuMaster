@@ -214,3 +214,81 @@ function RealizarPedido() {
         return showAlert(tipoAlerta, "Ops!", descricaoErro);
     }
 }
+
+function PedidoAndamento(id) {
+    if (id == '') {
+        return showAlert("warning", "Atenção!", "Identificador do pedido deve ser preenchido")
+    }
+
+    Swal.fire({
+        title: "Deseja realmente colocar em andamento este pedido?",
+        showDenyButton: false,
+        showCancelButton: true,
+        cancelButtonText: "Cancelar",
+        confirmButtonText: `Em Andamento`,
+    }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            try {
+                let r = $.ajax({
+                    url: "/Mesa/PedidoAndamento/" + id,
+                    method: "GET",
+                    async: false,
+                    contentType: "application/json",
+
+                });
+
+                if (r.status !== 200) {
+                    let rData = r.responseJSON;
+                    throw new Error(JSON.stringify(rData));
+                }
+
+                return showAlert("success", "Sucesso!", "Pedido em andamento", true);
+            } catch (error) {
+                let errorData = JSON.parse(error.message);
+                let { descricaoErro, tipoAlerta } = errorData;
+                return showAlert(tipoAlerta, "Ops!", descricaoErro);
+            }
+        }
+
+    });
+}
+
+function EntregarPedido(id) {
+    if (id == '') {
+        return showAlert("warning", "Atenção!", "Identificador do pedido deve ser preenchido")
+    }
+
+    Swal.fire({
+        title: "Deseja realmente finalizar a execução deste pedido?",
+        showDenyButton: false,
+        showCancelButton: true,
+        cancelButtonText: "Cancelar",
+        confirmButtonText: `Finalizar`,
+    }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            try {
+                let r = $.ajax({
+                    url: "/Mesa/EntregarPedido/" + id,
+                    method: "GET",
+                    async: false,
+                    contentType: "application/json",
+
+                });
+
+                if (r.status !== 200) {
+                    let rData = r.responseJSON;
+                    throw new Error(JSON.stringify(rData));
+                }
+
+                return showAlert("success", "Sucesso!", "Pedido entregue", true);
+            } catch (error) {
+                let errorData = JSON.parse(error.message);
+                let { descricaoErro, tipoAlerta } = errorData;
+                return showAlert(tipoAlerta, "Ops!", descricaoErro);
+            }
+        }
+
+    });
+}

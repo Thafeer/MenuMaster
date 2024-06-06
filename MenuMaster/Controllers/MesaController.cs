@@ -20,7 +20,10 @@ namespace MenuMaster.Controllers
                 if (mesa.Ocupada)
                 {
                     mesa.Cliente = _context.Clientes.FirstOrDefault(x => x.Id == mesa.ClienteId);  
-                    mesa.Pedidos = _context.Pedidos.Where(x => x.MesaId == mesa.Id).ToList();
+                    mesa.Pedidos = _context.Pedidos
+                        .Where(x => x.MesaId == mesa.Id && x.Status.ToUpper() != "PAGO")
+                        .ToList();
+
                     if (mesa.Pedidos is not null)
                     {
                         foreach (var item in mesa.Pedidos)
@@ -253,6 +256,80 @@ namespace MenuMaster.Controllers
                 var mensagem = ex.Message.Split(';');
 
                 //Criei um pequeno objeto de estrutura para retornar o erro
+                var estruturaRetorno = new
+                {
+                    DescricaoErro = mensagem[0],
+                    TipoAlerta = (mensagem.Length > 1) ? mensagem[1] : "error"
+                };
+                return BadRequest(estruturaRetorno);
+            }
+            return Ok();
+        }
+
+        [HttpGet("Mesa/PedidoAndamento/{id}")]
+        public IActionResult PedidoAndamento(int id)
+        {
+            try
+            {
+                Pedido pedido = _context.Pedidos.FirstOrDefault(p => p.Id == id);
+
+                if (pedido == null)
+                    throw new InvalidOperationException("Não foi possivel encontrar o pedido, tente novamente;warning");
+
+                Mesa mesa = _context.Mesas.FirstOrDefault(x => x.Id == pedido.MesaId);
+                if (mesa is null)
+                    throw new InvalidOperationException("Não foi possivel encontrar a mesa, tente novamente;warning");
+
+                if (pedido.Status.ToUpper() == "COZINHA")
+                {
+                    pedido.Status = "Em Andamento Cozinha";
+                }
+                else
+                {
+                    pedido.Status = "Em Andamento Copa";
+                }
+
+                _context.Update(pedido);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                var mensagem = ex.Message.Split(';');
+                var estruturaRetorno = new
+                {
+                    DescricaoErro = mensagem[0],
+                    TipoAlerta = (mensagem.Length > 1) ? mensagem[1] : "error"
+                };
+                return BadRequest(estruturaRetorno);
+            }
+            return Ok();
+        }
+
+        [HttpGet("Mesa/EntregarPedido/{id}")]
+        public IActionResult EntregarPedido(int id)
+        {
+            try
+            {
+                Pedido pedido = _context.Pedidos.FirstOrDefault(p => p.Id == id);
+
+                if (pedido == null)
+                    throw new InvalidOperationException("Não foi possivel encontrar o pedido, tente novamente;warning");
+
+                Mesa mesa = _context.Mesas.FirstOrDefault(x => x.Id == pedido.MesaId);
+                if (mesa is null)
+                    throw new InvalidOperationException("Não foi possivel encontrar a mesa, tente novamente;warning");
+
+                if (pedido.Status.ToUpper().Contains("EM ANDAMENTO"))
+                {
+                    pedido.Status = "Finalizado";
+                }
+
+                _context.Update(pedido);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                var mensagem = ex.Message.Split(';');
                 var estruturaRetorno = new
                 {
                     DescricaoErro = mensagem[0],
