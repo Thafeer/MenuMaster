@@ -92,8 +92,6 @@ namespace MenuMaster.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClienteId");
-
                     b.ToTable("Mesas");
                 });
 
@@ -115,8 +113,6 @@ namespace MenuMaster.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MesaId");
 
                     b.ToTable("Pedidos");
                 });
@@ -142,10 +138,6 @@ namespace MenuMaster.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MenuItemId");
-
-                    b.HasIndex("PedidoId");
 
                     b.ToTable("PedidoItens");
                 });

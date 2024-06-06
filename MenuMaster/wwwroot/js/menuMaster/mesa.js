@@ -136,3 +136,81 @@ function ReativarMesa(id) {
 
     });
 }
+
+function AbrirMesa() {
+    let id = $("#abrirMesaId").val();
+    let nome = $("#abrirMesaNome").val();
+    let telefone = $("#abrirMesaTelefone").val();
+
+    if (nome == '' && telefone == '') {
+        return showAlert("warning", "Atenção!", "Nome e telefone deve ser preenchidos")
+    }
+
+    let objeto = {
+        Nome: nome, 
+        Telefone: telefone
+    };
+
+    try {
+        let r = $.ajax({
+            url: "/Mesa/AbrirMesa/" + id,
+            method: "POST",
+            async: false,
+            contentType: "application/json",
+            data: JSON.stringify(objeto),
+            headers: {
+                "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+            }
+        });
+
+        if (r.status !== 200) {
+            let rData = r.responseJSON;
+            throw new Error(JSON.stringify(rData));
+        }
+
+        return showAlert("success", "Sucesso!", "Mesa aberta", true);
+    } catch (error) {
+        let errorData = JSON.parse(error.message);
+        let { descricaoErro, tipoAlerta } = errorData;
+        return showAlert(tipoAlerta, "Ops!", descricaoErro);
+    }
+}
+
+function RealizarPedido() {
+    let id = $("#pedidoMesaId").val();
+    let itemId = $("#pedidoItemId").val();
+    let quantidade = $("#pedidoQuantidade").val();
+
+    if (itemId == '' || quantidade == '') {
+        return showAlert("warning", "Atenção!", "Item do cardápio e quantidade não pode ser vazio")
+    }
+
+    let objeto = {
+        ItemId: itemId,
+        Quantidade: quantidade
+    };
+
+    try {
+        let r = $.ajax({
+            url: "/Mesa/SolicitarPedido/" + id,
+            method: "POST",
+            async: false,
+            contentType: "application/json",
+            data: JSON.stringify(objeto),
+            headers: {
+                "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+            }
+        });
+
+        if (r.status !== 200) {
+            let rData = r.responseJSON;
+            throw new Error(JSON.stringify(rData));
+        }
+
+        return showAlert("success", "Sucesso!", "Pedido solicitado com sucesso", true);
+    } catch (error) {
+        let errorData = JSON.parse(error.message);
+        let { descricaoErro, tipoAlerta } = errorData;
+        return showAlert(tipoAlerta, "Ops!", descricaoErro);
+    }
+}

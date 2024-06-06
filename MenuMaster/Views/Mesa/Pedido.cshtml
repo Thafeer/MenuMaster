@@ -1,5 +1,78 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@*Faco a chamada da minha classe de models utilizando como modelo a CardapioMesaView*@
+@using MenuMaster.Models
+@model CardapioMesaModelView
+
 @{
+    ViewBag.Title = "MenuMaster";
 }
+@section scripts {
+    <script src="~/js/menuMaster/mesa.js" asp-append-version="true"></script>
+}
+
+<section class="content">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <button type="button" class="btn btn-secondary" id="btnVoltarItem">Voltar</button>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Mesa</a></li>
+                        <li class="breadcrumb-item active">Solicitar pedido</li>
+                    </ol>
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Pedido mesa nº: @Model.Mesa.Numero</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="formCadastroItem" autocomplete="off">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" id="pedidoMesaId" value="@Model.Mesa.Id">
+                            <div class="row row-Design">
+                                <div class="input-group-Design col-md-3" style="margin-top:20px;">
+                                    <select id="pedidoItemId" aria-label="item">
+                                        <option value="" selected>Selecione...</option>
+                                        <option disabled value="" style="font-weight: bold;">*COMIDAS</option>
+                                        @foreach (var item in Model.MenuItens)
+                                        {
+                                            @if (item.Tipo.ToUpper() == "COMIDA")
+                                            {
+                                                <option value="@item.Id">@item.Nome.ToLower() - R$@item.Preco</option>
+                                            }
+                                        }
+                                        <option disabled value=""></option>
+                                        <option disabled value="" style="font-weight: bold;">*BEBIDAS</option>
+                                        @foreach (var item in Model.MenuItens)
+                                        {
+                                            @if (item.Tipo.ToUpper() == "BEBIDA")
+                                            {
+                                                <option value="@item.Id">@item.Nome.ToLower() - R$@item.Preco</option>
+                                            }
+                                       }                                       
+                                    </select>
+                                    <label for="item">Disponível: <span class="obrigatorio">*</span></label>
+                                </div> 
+                                <div class="input-group-Design col-md-4" style="margin-top:20px; max-width:150px;">
+                                    <input type="number" min="1" max="1000" id="pedidoQuantidade">
+                                    <label for="numSerie">Quantidade: <span class="obrigatorio">*</span></label>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="col button-group-Design">
+                            <button type="button" class="btn btn-primary" onclick="RealizarPedido()">Solicitar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

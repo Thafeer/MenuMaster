@@ -1,5 +1,58 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using MenuMaster.Models
+@model Mesa
+
 @{
+    ViewBag.Title = "MenuMaster";
 }
+@section scripts {
+    <script src="~/js/menuMaster/mesa.js" asp-append-version="true"></script>
+}
+
+<section class="content">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <button type="button" class="btn btn-secondary" id="btnVoltarMesa">Voltar</button>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Mesas</a></li>
+                        <li class="breadcrumb-item active">Abrir mesa</li>
+                    </ol>
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Mesa Nº: @Model.Numero</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="formAbrirMesa" autocomplete="off">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" id="abrirMesaId" value="@Model.Id">
+                            <div class="row row-Design">
+                                <div class="input-group-Design col-md-3" style="margin-top:20px;">
+                                    <input type="text" id="abrirMesaNome"  required>
+                                    <label for="numSerie">Nome: <span class="obrigatorio">*</span></label>
+                                </div>
+                                <div class="input-group-Design col-md-3" style="margin-top:20px;">
+                                    <input type="text" id="abrirMesaTelefone" class="telefone" required>
+                                    <label for="numSerie">Telefone: <span class="obrigatorio">*</span></label>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="col button-group-Design">
+                            <button type="button" class="btn btn-primary" onclick="AbrirMesa()">Abrir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

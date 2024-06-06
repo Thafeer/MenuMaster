@@ -98,7 +98,7 @@
                             {
                                 @foreach (var item in Model)
                                 {
-                                    if (item.Tipo == "BEBIDA")
+                                    if (item.Tipo.ToUpper() == "BEBIDA")
                                     {
                                         if (item.Disponivel)
                                         {

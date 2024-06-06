@@ -49,11 +49,12 @@ namespace MenuMaster.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Numero = table.Column<int>(type: "int", nullable: false),
                     Ocupada = table.Column<bool>(type: "bit", nullable: true),
-                    ClienteId = table.Column<int>(type: "int", nullable: true)
+                    ClienteId = table.Column<int>(type: "int", nullable: true),
+                    Disponivel = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Mesas", x => x.Id);                  
+                    table.PrimaryKey("PK_Mesas", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -62,13 +63,13 @@ namespace MenuMaster.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MesaId = table.Column<int>(type: "int", nullable: false),
+                    MesaId = table.Column<int>(type: "int", nullable: true),
                     DataHora = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Total = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pedidos", x => x.Id);                  
+                    table.PrimaryKey("PK_Pedidos", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -84,7 +85,7 @@ namespace MenuMaster.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PedidoItens", x => x.Id);                   
+                    table.PrimaryKey("PK_PedidoItens", x => x.Id);
                 });
         }
 

@@ -23,166 +23,123 @@ namespace MenuMaster.Migrations
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("MenuMaster.Models.Cliente", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Nome")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Telefone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Telefone")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("Clientes");
-                });
+                b.ToTable("Clientes");
+            });
 
             modelBuilder.Entity("MenuMaster.Models.MenuItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("Disponivel")
-                        .HasColumnType("bit");
+                b.Property<bool>("Disponivel")
+                    .HasColumnType("bit");
 
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Nome")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Preco")
-                        .HasColumnType("decimal(18,2)");
+                b.Property<decimal>("Preco")
+                    .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Tipo")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Tipo")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("MenuItens");
-                });
-
-            modelBuilder.Entity("MenuMaster.Models.Mesa", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ClienteId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Numero")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Ocupada")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Mesas");
-                });
-
-            modelBuilder.Entity("MenuMaster.Models.Pedido", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("DataHora")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("MesaId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Total")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Pedidos");
-                });
-
-            modelBuilder.Entity("MenuMaster.Models.PedidoItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("MenuItemId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PedidoId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Preco")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Quantidade")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PedidoItens");
-                });
+                b.ToTable("MenuItens");
+            });
 
             modelBuilder.Entity("MenuMaster.Models.Mesa", b =>
-                {
-                    b.HasOne("MenuMaster.Models.Cliente", "Cliente")
-                        .WithMany()
-                        .HasForeignKey("ClienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    b.Navigation("Cliente");
-                });
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                b.Property<int>("ClienteId")
+                    .HasColumnType("int");
+
+                b.Property<int>("Numero")
+                    .HasColumnType("int");
+
+                b.Property<bool>("Ocupada")
+                    .HasColumnType("bit");
+
+                b.Property<bool>("Disponivel")
+                    .HasColumnType("bit");
+
+                b.HasKey("Id");
+
+                b.ToTable("Mesas");
+            });
 
             modelBuilder.Entity("MenuMaster.Models.Pedido", b =>
-                {
-                    b.HasOne("MenuMaster.Models.Mesa", "Mesa")
-                        .WithMany()
-                        .HasForeignKey("MesaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    b.Navigation("Mesa");
-                });
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                b.Property<DateTime>("DataHora")
+                    .HasColumnType("datetime2");
+
+                b.Property<int>("MesaId")
+                    .HasColumnType("int");
+
+                b.Property<decimal>("Total")
+                    .HasColumnType("decimal(18,2)");
+
+                b.HasKey("Id");
+
+                b.ToTable("Pedidos");
+            });
 
             modelBuilder.Entity("MenuMaster.Models.PedidoItem", b =>
-                {
-                    b.HasOne("MenuMaster.Models.MenuItem", "MenuItem")
-                        .WithMany()
-                        .HasForeignKey("MenuItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    b.HasOne("MenuMaster.Models.Pedido", "Pedido")
-                        .WithMany("Itens")
-                        .HasForeignKey("PedidoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Navigation("MenuItem");
+                b.Property<int>("MenuItemId")
+                    .HasColumnType("int");
 
-                    b.Navigation("Pedido");
-                });
+                b.Property<int>("PedidoId")
+                    .HasColumnType("int");
 
-            modelBuilder.Entity("MenuMaster.Models.Pedido", b =>
-                {
-                    b.Navigation("Itens");
-                });
+                b.Property<decimal>("Preco")
+                    .HasColumnType("decimal(18,2)");
+
+                b.Property<int>("Quantidade")
+                    .HasColumnType("int");
+
+                b.HasKey("Id");
+
+                b.ToTable("PedidoItens");
+            });
 #pragma warning restore 612, 618
         }
     }

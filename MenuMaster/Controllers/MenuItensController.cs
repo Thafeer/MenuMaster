@@ -13,7 +13,8 @@ namespace MenuMaster.Controllers
         }
         public IActionResult Index()
         {
-            return View(_context.MenuItens.OrderBy(x => x.Disponivel == false).ToList());
+            var itens = _context.MenuItens.OrderBy(x => x.Disponivel == false).ToList();
+            return View(itens);
         }
         public IActionResult Criar()
         {

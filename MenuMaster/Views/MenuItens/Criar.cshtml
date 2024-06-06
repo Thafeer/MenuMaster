@@ -42,8 +42,12 @@
                                     <label for="numSerie">Preço: <span class="obrigatorio">*</span></label>
                                 </div>
                                 <div class="input-group-Design col-md-3" style="margin-top:20px;">
-                                    <input type="text" id="tipoItem" required>
-                                    <label for="modelo">Tipo de item: <span class="obrigatorio">*</span></label>
+                                    <select id="tipoItem" aria-label="item">
+                                        <option value="" selected>Selecione...</option>
+                                        <option value="Comida">Comida</option>
+                                        <option value="Bebida">Bebida</option>
+                                    </select>
+                                    <label for="item">Tipo de item: <span class="obrigatorio">*</span></label>
                                 </div>
                                 <div class="input-group-Design col-md-3" style="margin-top:20px;">
                                     <select id="disponibilidade" aria-label="item">

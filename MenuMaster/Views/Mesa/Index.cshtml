@@ -34,7 +34,7 @@
                     <div class="card-body">
                         <div class="row">
 
-                            @if (Model != null && Model.Any())
+                            @if (Model != null)
                             {
                                 @foreach (var item in Model)
                                 {
@@ -63,7 +63,7 @@
                                             <div class="small-box bg-warning">
                                                 <div class="inner">
                                                     <h4>Mesa: @item.Numero</h4>
-                                                    <h4>Cliente: @item.Cliente.Nome</h4>
+                                                    <h6>Cliente: @item.Cliente.Nome</h6>
                                                     <div class="dropdown">
                                                         Ocupada
                                                         <button class="btn btn-info btn-sm bg-gradient dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -111,5 +111,64 @@
             </div>
         </div>
     </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Andamento de pedidos</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
 
+                            @if (Model != null)
+                            {
+                                @foreach (var Mesa in Model)
+                                {
+                                    if (Mesa.Pedidos != null)
+                                    {
+                                        foreach (var pedido in Mesa.Pedidos)
+                                        {
+                                            if (pedido.Status.ToUpper() == "COZINHA")
+                                            {
+                                                <div class="col-md-2">
+                                                    <div class="small-box bg-info">
+                                                        <div class="inner">
+                                                            <h4>Mesa: @pedido.Mesa.Numero</h4>
+                                                            <h6>Cliente: @pedido.Mesa.Cliente.Nome</h6>
+                                                            <h6>Pedido: @pedido.MenuItem.Nome</h6>
+                                                            <h6>Em Andamento na Cozinha</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else if (pedido.Status.ToUpper() == "COPA")
+                                            {
+                                                <div class="col-md-2">
+                                                    <div class="small-box bg-info">
+                                                        <div class="inner">
+                                                            <h4>Mesa: @pedido.Mesa.Numero</h4>
+                                                            <h6>Cliente: @pedido.Mesa.Cliente.Nome</h6>
+                                                            <h6>Pedido: @pedido.MenuItem.Nome</h6>
+                                                            <h6>Em Andamento na Copa</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+                                    }                                             
+                                }
+                            }
+                            else
+                            {
+                                <p>
+                                    Não existem mesas cadastradas
+                                </p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
