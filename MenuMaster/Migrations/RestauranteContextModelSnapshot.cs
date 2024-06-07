@@ -108,37 +108,24 @@ namespace MenuMaster.Migrations
                 b.Property<int>("MesaId")
                     .HasColumnType("int");
 
-                b.Property<decimal>("Total")
-                    .HasColumnType("decimal(18,2)");
-
-                b.HasKey("Id");
-
-                b.ToTable("Pedidos");
-            });
-
-            modelBuilder.Entity("MenuMaster.Models.PedidoItem", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int");
-
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                 b.Property<int>("MenuItemId")
-                    .HasColumnType("int");
+                   .HasColumnType("int");
 
-                b.Property<int>("PedidoId")
-                    .HasColumnType("int");
-
-                b.Property<decimal>("Preco")
+                b.Property<decimal>("Total")
                     .HasColumnType("decimal(18,2)");
 
                 b.Property<int>("Quantidade")
                     .HasColumnType("int");
 
+                b.Property<decimal>("Preco")
+                   .HasColumnType("decimal(18,2)");
+
+                b.Property<string>("Status")
+                    .HasColumnType("nvarchar(max)");
+
                 b.HasKey("Id");
 
-                b.ToTable("PedidoItens");
+                b.ToTable("Pedidos");
             });
 #pragma warning restore 612, 618
         }

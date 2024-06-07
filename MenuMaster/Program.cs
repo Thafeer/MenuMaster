@@ -11,6 +11,8 @@ namespace MenuMaster
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            // Comando para adicionar meu contexto de banco de dados, pegando minha conexão
             builder.Services.AddDbContext<RestauranteContext>(o => 
             o.UseSqlServer(builder.Configuration.GetConnectionString("DataBase")));
 

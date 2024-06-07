@@ -1,4 +1,5 @@
 ﻿using System;
+using MenuMaster.Models;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -65,36 +66,21 @@ namespace MenuMaster.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MesaId = table.Column<int>(type: "int", nullable: true),
                     DataHora = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
+                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    MenuItemId = table.Column<int>(type: "int", nullable: true),
+                    Quantidade = table.Column<int>(type: "int", nullable: true),
+                    Preco = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Status = table.Column<string>(type: "varchar(max)", nullable: true)           
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pedidos", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PedidoItens",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PedidoId = table.Column<int>(type: "int", nullable: false),
-                    MenuItemId = table.Column<int>(type: "int", nullable: false),
-                    Quantidade = table.Column<int>(type: "int", nullable: false),
-                    Preco = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PedidoItens", x => x.Id);
                 });
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "PedidoItens");
-
             migrationBuilder.DropTable(
                 name: "MenuItens");
 

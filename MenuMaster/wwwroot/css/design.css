@@ -1,3 +1,5 @@
+/*CSS MODIFICADOS PARA DESIGN*/
+
 .btn-material-Design-info {
     background-color: #6b92ac;
     color: #FFFFFF;
@@ -66,8 +68,6 @@
     border-radius: 6px;
 }
 
-
-/*BOTÃO ERRO Design*/
 .btn-material-Design-danger {
     background-color: #DC3545;
     color: #FFFFFF;
@@ -98,7 +98,6 @@
         box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3);
     }
 
-/*BOTÃO PRIMARIO Design*/
 .btn-material-Design-primary {
     background-color: #ff9800;
     color: #FFFFFF;
@@ -129,7 +128,6 @@
         box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3);
     }
 
-/*BOTÃO SECUNDARIO Design*/
 .btn-material-Design-secondary {
     background-color: #6C757D;
     color: #FFFFFF;
@@ -167,7 +165,6 @@
     padding: 4px;
 }
 
-/*CABEÇALHO PADRAO Design*/
 #cabecalho-Design {
     display: flex;
     justify-content: space-between;
@@ -195,13 +192,11 @@
     box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-/*BREADCRUDesign PADRAO Design*/
 .breadcruDesign-Design {
     padding-left: 18px !important;
     font-size: 18px;
 }
 
-/*PADRAO INPUT Design*/
 .input-group-Design {
     position: relative;
     display: inline-block;
@@ -322,7 +317,6 @@
     font-size: 16px !important;
 }
 
-/*BADGE INFO PADRAO Design*/
 .badge-Design {
     margin-top: 10px;
     width: 80px;
@@ -330,7 +324,6 @@
     margin-bottom: 1rem;
 }
 
-/*SELECT PADRAO Design*/
 .select-material-Design {
     position: relative;
     display: inline-block;
